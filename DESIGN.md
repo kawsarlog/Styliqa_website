@@ -25,9 +25,10 @@ Contrast checked: `--ink` on `--paper` ≈ 13:1. `--cream-ink` on `--void` ≈ 1
 
 ## Typography
 
-- **Display / headings:** Fraunces (variable, optical size "soft" for large sizes) — a fashion-editorial serif with real character, distinct from the Playfair/Cormorant default. Italic weight used sparingly for one accent word per hero/section, never gradient text.
-- **Body / UI:** Inter — geometric-humanist sans, high legibility at small sizes, wide weight range for hierarchy without extra families.
-- Contrast axis: serif display vs. sans body — no second sans anywhere.
+- **Display / headings:** Bodoni Moda (variable, optical size axis) — a genuine high-contrast didone with real fashion-editorial pedigree (Vogue/Bazaar-adjacent), swapped in after Fraunces/Inter both flagged as overused-AI-default fonts by the impeccable detector. Italic weight used sparingly for one accent word per hero/section, never gradient text.
+- **Body / UI:** Archivo — geometric-grotesk sans, high legibility at small sizes, wide weight range for hierarchy without extra families.
+- Contrast axis: high-contrast didone serif display vs. grotesk sans body — no second sans anywhere.
+- Load as two separate Google Fonts `<link>` tags (not one combined `family=A&family=B` URL) so tooling that parses font links per-request sees both faces.
 - Hero clamp: `clamp(2.75rem, 6vw, 5.5rem)`, letter-spacing ≥ -0.03em, `text-wrap: balance`.
 - Body cap: 68ch measure, `text-wrap: pretty` on long paragraphs.
 - No uppercase tracked eyebrows as default scaffolding. Section labels (when used) are set as small Fraunces italic phrases, not tracked-caps kickers.
@@ -40,12 +41,15 @@ Contrast checked: `--ink` on `--paper` ≈ 13:1. `--cream-ink` on `--void` ≈ 1
 
 ## Motion
 
+Deliberately light ("halka") — one signature moment, not motion on every element.
+
 - Ease-out-expo/quart for all transitions, no bounce/elastic.
-- Logo hanger mark line-draws in on load (SVG stroke-dashoffset).
+- The SVG stroke-draw-in effect is reserved for exactly two spots: the hero croquis/measuring-tape illustration on load, and the single wave line behind Contact. Everything else that used to auto-animate (about stitch line, work-category icons) now renders as static line art — it read as busier motion than the illustration was worth.
+- Service icons draw in only on hover/focus (an earned, interaction-tied reveal, not autoplay).
 - Scroll reveals: content is visible by default in markup; reveal only adds a refined transform/opacity-in-view enhancement (no visibility gating).
-- Subtle parallax drift on hero background motifs; portfolio tiles get a gentle tilt/scale on hover, not a spin.
-- Marquee strip for client/service tags at a slow, steady linear speed.
-- Full `prefers-reduced-motion: reduce` fallback: instant/crossfade, parallax and marquee disabled.
+- Subtle parallax drift on the hero illustration only; portfolio tiles get a gentle tilt/scale on hover, not a spin.
+- Two marquees: a service-tag strip (single direction), and a dual-row client-testimonial marquee (opposite directions, pauses on hover) — both slow, steady, linear.
+- Full `prefers-reduced-motion: reduce` fallback: instant/crossfade, all marquees and parallax disabled; the testimonial marquee collapses to a static wrapped grid.
 
 ## Components
 
@@ -53,3 +57,5 @@ Contrast checked: `--ink` on `--paper` ≈ 13:1. `--cream-ink` on `--void` ≈ 1
 - **Buttons:** solid `--brand` primary (cream text), outline/ghost secondary on both surfaces; no side-stripe accents anywhere.
 - **Cards:** used only for service/portfolio/testimonial content where a bounded surface genuinely helps scanning; never nested.
 - **Stats row:** inline set (4.8★ · 1,400+ reviews · est. 2019 · clients across 6+ countries) — earned real numbers, not a generic hero-metric block.
+- **Testimonial marquee:** two opposite-direction rows of real reviews pulled from the studio's own Fiverr review export (`fiverr review .xlsx`), each with the reviewer's real public avatar (`assets/img/reviewers/`), Fiverr handle, country, and star rating — replaces the earlier text-only scroll-snap rail. Duplicated track per row for a seamless loop; parent wrapper clips and edge-fades via mask-image. Loop math: the connecting gap lives in each track's own `padding-inline-end` (not the row's `gap`), so track width divides the row exactly in half — `translateX(-50%)` lands with zero seam.
+- **Blog:** `/blog/index.html` (listing) + one `.html` file per post (`/blog/<slug>.html`), sharing the same nav/footer/tokens as the main site. Full SEO layer: unique title/meta description per page (title ≤60 chars, description ≤140 — short of the 160 ceiling on purpose so nothing truncates), OG/Twitter cards with a generated 1200×630 brand image per page (`assets/img/og/`, built by `scripts/make_og_image.py`), BlogPosting + BreadcrumbList JSON-LD on articles, Organization JSON-LD with real aggregateRating on the homepage, canonical tags, `sitemap.xml`, `robots.txt`. Canonical domain is a placeholder (`https://styliqa.studio`) — update every `https://styliqa.studio/` occurrence once the real domain is live.
