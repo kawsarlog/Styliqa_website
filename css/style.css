@@ -896,6 +896,7 @@ body {
   line-height: 1.6;
 }
 .contact__office .text-link { display: inline-block; margin-top: 0.75rem; }
+.contact__office--tight { margin-top: 1.5rem; padding-top: 0; border-top: none; }
 
 .contact__form {
   background: color-mix(in oklch, var(--void) 60%, var(--paper-high) 4%);
