@@ -32,7 +32,11 @@
    Reset
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* overflow-x on body breaks position:fixed FABs on some mobile browsers */
+  overflow-x: clip;
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
@@ -48,7 +52,6 @@ body {
   font-family: var(--font-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
 .skip-link {
@@ -970,12 +973,16 @@ body {
    ============================================================ */
 .whatsapp-fab {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
+  right: max(1.5rem, env(safe-area-inset-right, 0px));
+  left: auto;
+  top: auto;
   z-index: 950;
   display: flex;
   align-items: center;
   gap: 0.7rem;
+  width: max-content;
+  max-width: calc(100vw - 2rem);
   padding: 0.5rem 1.1rem 0.5rem 0.5rem;
   background: var(--void);
   border: 1px solid var(--line-on-dark);
@@ -1079,7 +1086,12 @@ body {
 }
 
 @media (max-width: 600px) {
-  .whatsapp-fab { padding: 0.4rem; gap: 0; bottom: 1.1rem; right: 1.1rem; }
+  .whatsapp-fab {
+    padding: 0.4rem;
+    gap: 0;
+    bottom: max(1.1rem, env(safe-area-inset-bottom, 0px));
+    right: max(1.1rem, env(safe-area-inset-right, 0px));
+  }
   .whatsapp-fab__text { display: none; }
   .whatsapp-fab__bubble { display: none; }
 }
