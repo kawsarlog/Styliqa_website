@@ -1,0 +1,260 @@
+/* Styliqa blog admin — branded to match the studio site */
+:root {
+  --ink: #241a18;
+  --void: #1a1214;
+  --paper: #f7eee2;
+  --paper-high: #fffcf9;
+  --brand: #b31d2e;
+  --brand-deep: #8e1522;
+  --terracotta: #c97b5b;
+  --muted: color-mix(in srgb, #241a18 66%, transparent);
+  --line: color-mix(in srgb, #241a18 12%, transparent);
+  --font-display: "Bodoni Moda", Georgia, serif;
+  --font-body: "Archivo", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, color-mix(in srgb, var(--brand) 12%, transparent), transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, color-mix(in srgb, var(--terracotta) 18%, transparent), transparent 50%),
+    var(--paper);
+  color: var(--ink);
+}
+
+a { color: var(--brand); }
+
+.admin-shell { max-width: 56rem; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+
+.admin-login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1.25rem;
+}
+
+.admin-card {
+  width: 100%;
+  max-width: 26rem;
+  background: var(--paper-high);
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  padding: 2rem;
+  box-shadow: 0 18px 40px color-mix(in srgb, var(--void) 8%, transparent);
+}
+
+.admin-card__icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.85rem;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--brand) 12%, transparent);
+  color: var(--brand-deep);
+  font-size: 1.25rem;
+}
+
+.admin-card h1,
+.admin-head h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.admin-card h1 { font-size: 1.35rem; }
+.admin-head h1 { font-size: clamp(1.6rem, 3vw, 2rem); }
+
+.muted { color: var(--muted); font-size: 0.92rem; }
+
+.admin-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-panel {
+  background: var(--paper-high);
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  padding: 1.35rem;
+  margin-bottom: 1.25rem;
+}
+
+.admin-panel h2 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  margin: 0 0 0.25rem;
+}
+
+.grid { display: grid; gap: 0.85rem; }
+.grid-2 { display: grid; gap: 0.85rem; }
+@media (min-width: 720px) {
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.85rem; }
+}
+
+label.field {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="file"],
+textarea,
+select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  padding: 0.7rem 0.85rem;
+}
+
+textarea { resize: vertical; min-height: 4.5rem; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.65rem 1.15rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn--brand { background: var(--brand); color: #fff; }
+.btn--brand:hover { background: var(--brand-deep); }
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.btn--danger { background: #9f1d1d; color: #fff; }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+
+.status-toggle {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper) 80%, white);
+}
+
+.status-toggle button {
+  border: 0;
+  background: transparent;
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: var(--muted);
+}
+.status-toggle button.is-active {
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 1px 4px color-mix(in srgb, var(--void) 10%, transparent);
+}
+
+.post-row {
+  display: flex;
+  gap: 0.85rem;
+  align-items: center;
+  padding: 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  margin-top: 0.7rem;
+}
+
+.post-row__thumb {
+  width: 4.5rem;
+  height: 3.2rem;
+  border-radius: 0.6rem;
+  overflow: hidden;
+  background: var(--paper);
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+}
+.post-row__thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+.post-row__title { font-weight: 600; font-size: 0.95rem; }
+.post-row__meta { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.35rem; font-size: 0.78rem; color: var(--muted); }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+  font-weight: 600;
+}
+.pill--pub { background: color-mix(in srgb, #1f7a3f 14%, transparent); color: #1f7a3f; }
+.pill--draft { background: color-mix(in srgb, var(--terracotta) 20%, transparent); color: var(--brand-deep); }
+
+.hero-preview {
+  margin-top: 0.75rem;
+  max-width: 18rem;
+  aspect-ratio: 1200 / 630;
+  border-radius: 0.85rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+.hero-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+.toast {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  background: var(--void);
+  color: #fffcf9;
+  padding: 0.85rem 1.1rem;
+  border-radius: 0.85rem;
+  font-size: 0.9rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: 0.25s ease;
+  z-index: 50;
+  max-width: min(22rem, calc(100vw - 2rem));
+}
+.toast.is-on { opacity: 1; transform: none; }
+
+.ql-toolbar.ql-snow,
+.ql-container.ql-snow {
+  border-color: var(--line) !important;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+.ql-toolbar.ql-snow { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.ql-container.ql-snow {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  min-height: 280px;
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+}
+.req { color: var(--brand); }
+
+.hint { font-size: 0.75rem; color: var(--muted); font-weight: 400; }

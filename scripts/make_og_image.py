@@ -74,19 +74,10 @@ make_card(
     "og-default.png",
 )
 
-# Blog: tech pack vs flat sketch
-make_card(
-    ["Tech Pack vs. Flat Sketch:", "What Your Factory Needs"],
-    "STYLIQA JOURNAL",
-    "og-blog-tech-pack-vs-flat-sketch.png",
-)
-
-# Blog: pattern grading 101
-make_card(
-    ["Pattern Grading 101: One", "Size Becomes a Full Range"],
-    "STYLIQA JOURNAL",
-    "og-blog-pattern-grading-101.png",
-)
+# Blog post OG images are photographic covers (do not regenerate as text cards):
+#   assets/img/og/og-blog-tech-pack-vs-flat-sketch.jpg
+#   assets/img/og/og-blog-pattern-grading-101.jpg
+# Card thumbs live in assets/img/blog/cover-*.jpg
 
 # Blog index
 make_card(

@@ -154,4 +154,51 @@
       window.location.href = `mailto:hello@styliqa.studio?subject=${subject}&body=${body}`;
     });
   }
+
+  /* ---------- Reviews marquee: keep each half >= viewport so -50% never exposes a gap ---------- */
+  const setupReviewMarquees = () => {
+    const marquees = document.querySelector(".reviews__marquees");
+    if (!marquees) return;
+
+    marquees.querySelectorAll(".reviews__row").forEach((row) => {
+      const tracks = [...row.querySelectorAll(".reviews__track")];
+      if (tracks.length < 2) return;
+
+      const seedTrack = tracks[0];
+      if (!seedTrack.dataset.marqueeSeed) {
+        seedTrack.dataset.marqueeSeed = "true";
+        seedTrack._marqueeSeed = [...seedTrack.children].map((node) => node.cloneNode(true));
+      }
+      const seed = seedTrack._marqueeSeed;
+      if (!seed?.length) return;
+
+      const fillTrack = (track) => {
+        track.replaceChildren(...seed.map((node) => node.cloneNode(true)));
+        let guard = 0;
+        while (track.scrollWidth < marquees.clientWidth && guard < 12) {
+          seed.forEach((node) => track.appendChild(node.cloneNode(true)));
+          guard += 1;
+        }
+      };
+
+      fillTrack(seedTrack);
+      const cloneChildren = [...seedTrack.children].map((node) => node.cloneNode(true));
+      tracks.slice(1).forEach((track) => {
+        track.replaceChildren(...cloneChildren.map((node) => node.cloneNode(true)));
+      });
+    });
+  };
+
+  if (!reduceMotion) {
+    setupReviewMarquees();
+    let resizeTimer = 0;
+    window.addEventListener(
+      "resize",
+      () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(setupReviewMarquees, 150);
+      },
+      { passive: true }
+    );
+  }
 })();

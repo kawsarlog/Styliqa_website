@@ -1,0 +1,30 @@
+{
+  "name": "styliqa",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Styliqa studio website with dynamic blog",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1102.0",
+    "@aws-sdk/s3-request-presigner": "^3.1102.0"
+  },
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kawsarlog/Styliqa_website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kawsarlog/Styliqa_website/issues"
+  },
+  "homepage": "https://github.com/kawsarlog/Styliqa_website#readme"
+}

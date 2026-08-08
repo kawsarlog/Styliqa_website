@@ -1,5 +1,8 @@
 node_modules/
 .vercel
+.env
+.env.local
+.env.*.local
 Screenshot*.png
 New Text Document.txt
 icon + logo.jpg
