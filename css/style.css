@@ -176,7 +176,6 @@ body {
   letter-spacing: -0.01em;
   color: var(--ink);
 }
-.hero .nav__word, .nav:not(.is-scrolled) .nav__word { color: var(--cream-ink); }
 
 .nav__links {
   display: flex;
@@ -190,7 +189,6 @@ body {
   position: relative;
   padding-block: 0.3rem;
 }
-.nav:not(.is-scrolled) .nav__links a { color: var(--cream-ink); }
 .nav__links a::after {
   content: "";
   position: absolute;
@@ -223,11 +221,19 @@ body {
   background: var(--ink);
   transition: transform 0.3s var(--ease-out-quart), opacity 0.3s;
 }
-.nav:not(.is-scrolled) .nav__burger span { background: var(--cream-ink); }
 .nav__burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
 .nav__burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .nav__burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-.nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] span { background: var(--ink); }
+
+/* Light nav ink only over dark heroes (home + blog index). Blog posts stay dark-on-paper. */
+body:has(.hero) .nav:not(.is-scrolled) .nav__word,
+body:has(.blog-hero) .nav:not(.is-scrolled) .nav__word { color: var(--cream-ink); }
+body:has(.hero) .nav:not(.is-scrolled) .nav__links a,
+body:has(.blog-hero) .nav:not(.is-scrolled) .nav__links a { color: var(--cream-ink); }
+body:has(.hero) .nav:not(.is-scrolled) .nav__burger span,
+body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger span { background: var(--cream-ink); }
+body:has(.hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] span,
+body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] span { background: var(--ink); }
 
 .mobile-menu {
   position: fixed;
