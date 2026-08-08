@@ -1,6 +1,7 @@
 const {
   SITE_URL,
   escapeHtml,
+  normalizeAssetUrl,
   chrome,
 } = require("../lib/blog-layout");
 const { fetchPublishedPosts } = require("../lib/blog-db");
@@ -17,7 +18,8 @@ module.exports = async function handler(req, res) {
     ? posts
         .map((p) => {
           const meta = [p.category, p.read_time].filter(Boolean).join(" · ");
-          const img = p.hero_img || `${SITE_URL}/assets/img/og/og-blog-index.png`;
+          const img =
+            normalizeAssetUrl(p.hero_img) || "/assets/img/og/og-blog-index.png";
           const alt = escapeHtml(p.hero_img_alt || p.title);
           return `<a href="/blog/${escapeHtml(p.slug)}" class="post-card">
         <img src="${escapeHtml(img)}" alt="${alt}" class="post-card__img" loading="lazy" width="1200" height="630">

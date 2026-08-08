@@ -74,14 +74,14 @@ insert into styliqa_blog_posts (
 <p>If you''re still deciding on silhouette, pitching a concept, or sourcing early quotes: a flat sketch, or a small package with a couple of colorways, is usually enough. If you''re moving into sampling, grading across sizes, or placing any kind of production order: you need a full tech pack, not a nicer flat sketch.</p>
 <p>Most projects that start with "I just need a sketch" end up needing the tech pack within a few weeks anyway, once a factory actually asks for measurements or a BOM. Building it once, properly, is almost always faster than patching a flat sketch into production-readiness under deadline pressure.</p>',
   'Tech Packs', 'tech-packs', 'Styliqa Studio',
-  'https://styliqa.studio/assets/img/blog/cover-tech-pack-vs-flat-sketch.jpg',
+  '/assets/img/blog/cover-tech-pack-vs-flat-sketch.jpg',
   'Tech pack flat sketch with fabric swatches on cream paper',
   '4 min read', 'published',
   'Tech Pack vs. Flat Sketch: What Factories Need | Styliqa',
   'A flat sketch shows what a garment looks like. A tech pack tells a factory how to build it correctly, every time.',
   'Tech Pack vs. Flat Sketch: What Your Factory Actually Needs',
   'A flat sketch shows what a garment looks like. A tech pack tells a factory how to build it correctly, every time. Here''s the real difference, and how to know which one you need.',
-  'https://styliqa.studio/assets/img/og/og-blog-tech-pack-vs-flat-sketch.jpg',
+  '/assets/img/og/og-blog-tech-pack-vs-flat-sketch.jpg',
   '2026-07-15T10:00:00Z'
 )
 on conflict (slug) do nothing;
@@ -113,16 +113,34 @@ insert into styliqa_blog_posts (
 <h2>The practical takeaway</h2>
 <p>If you''re expanding from a one-size or limited-run product into a full size range, budget for real grading, not just a resize. It''s a small line item next to the cost of reprinting labels, reworking a bulk order, or absorbing returns on a size that quietly doesn''t fit.</p>',
   'Pattern Making', 'pattern-making', 'Styliqa Studio',
-  'https://styliqa.studio/assets/img/blog/cover-pattern-grading-101.jpg',
+  '/assets/img/blog/cover-pattern-grading-101.jpg',
   'Graded pattern pieces with measuring tape on dark studio surface',
   '4 min read', 'published',
   'Pattern Grading 101: Full Size Ranges | Styliqa',
   'Why pattern grading is proportion, not scaling — and where most self-taught size ranges quietly break.',
   'Pattern Grading 101: How One Size Becomes a Full Size Range',
   'Why grading is proportion, not just scaling, and where most self-taught size ranges quietly break.',
-  'https://styliqa.studio/assets/img/og/og-blog-pattern-grading-101.jpg',
+  '/assets/img/og/og-blog-pattern-grading-101.jpg',
   '2026-07-22T10:00:00Z'
 )
 on conflict (slug) do nothing;
 
-select id, slug, status, category, published_at from styliqa_blog_posts order by published_at desc;
+-- ── Fix existing rows that still use the dead styliqa.studio host ──
+-- Safe to re-run. Prefer root-relative paths so styliqa.com / www both work.
+update styliqa_blog_posts
+set
+  hero_img = '/assets/img/blog/cover-tech-pack-vs-flat-sketch.jpg',
+  og_image = '/assets/img/og/og-blog-tech-pack-vs-flat-sketch.jpg',
+  updated_at = now()
+where slug = 'tech-pack-vs-flat-sketch';
+
+update styliqa_blog_posts
+set
+  hero_img = '/assets/img/blog/cover-pattern-grading-101.jpg',
+  og_image = '/assets/img/og/og-blog-pattern-grading-101.jpg',
+  updated_at = now()
+where slug = 'pattern-grading-101';
+
+select id, slug, status, category, hero_img, og_image, published_at
+from styliqa_blog_posts
+order by published_at desc;

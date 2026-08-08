@@ -10,7 +10,7 @@
       grid.innerHTML = posts
         .map((p) => {
           const meta = [p.category, p.read_time].filter(Boolean).join(" · ");
-          const img = p.hero_img || "assets/img/og/og-blog-index.png";
+          const img = p.hero_img || "/assets/img/og/og-blog-index.png";
           const alt = escapeAttr(p.hero_img_alt || p.title);
           return `<a href="/blog/${encodeURIComponent(p.slug)}" class="post-card reveal" data-reveal>
         <img src="${escapeAttr(img)}" alt="${alt}" class="post-card__img" loading="lazy" width="1200" height="630">

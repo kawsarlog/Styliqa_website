@@ -4,6 +4,8 @@ const {
   formatDate,
   isoDate,
   stripScripts,
+  normalizeAssetUrl,
+  absoluteUrl,
   chrome,
 } = require("../lib/blog-layout");
 const { fetchPublishedPosts, fetchPublishedPostBySlug } = require("../lib/blog-db");
@@ -60,10 +62,12 @@ module.exports = async function handler(req, res) {
   const canonical = `${SITE_URL}/blog/${post.slug}`;
   const ogTitle = post.og_title || post.title;
   const ogDescription = post.og_description || description;
-  const ogImage =
-    post.og_image ||
-    post.hero_img ||
-    `${SITE_URL}/assets/img/og/og-blog-index.png`;
+  const heroImg = normalizeAssetUrl(post.hero_img);
+  const ogImage = absoluteUrl(
+    normalizeAssetUrl(post.og_image) ||
+      heroImg ||
+      "/assets/img/og/og-blog-index.png"
+  );
   const published = isoDate(post.published_at);
   const modified = isoDate(post.updated_at || post.published_at);
   const author = post.author || "Styliqa Studio";
@@ -98,8 +102,8 @@ module.exports = async function handler(req, res) {
 </header>
 
 ${
-  post.hero_img
-    ? `<img src="${escapeHtml(post.hero_img)}" alt="${escapeHtml(post.hero_img_alt || post.title)}" class="article-cover" width="1200" height="630">`
+  heroImg
+    ? `<img src="${escapeHtml(heroImg)}" alt="${escapeHtml(post.hero_img_alt || post.title)}" class="article-cover" width="1200" height="630">`
     : ""
 }
 

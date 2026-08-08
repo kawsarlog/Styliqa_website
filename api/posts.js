@@ -1,4 +1,5 @@
 // Public JSON feed of published posts (homepage teaser, etc.).
+const { normalizeAssetUrl } = require("../lib/blog-layout");
 const { fetchPublishedPosts } = require("../lib/blog-db");
 
 module.exports = async function handler(req, res) {
@@ -16,7 +17,7 @@ module.exports = async function handler(req, res) {
       excerpt: p.excerpt,
       category: p.category,
       read_time: p.read_time,
-      hero_img: p.hero_img,
+      hero_img: normalizeAssetUrl(p.hero_img),
       hero_img_alt: p.hero_img_alt,
       published_at: p.published_at,
     }));
