@@ -25,6 +25,7 @@ module.exports = async function handler(req, res) {
     res.status(200).json({ posts: slim });
   } catch (err) {
     console.error("posts: fetch failed", err);
-    res.status(500).json({ error: "Failed to load posts" });
+    const status = err && err.status >= 400 && err.status < 600 ? err.status : 500;
+    res.status(status).json({ error: err.message || "Failed to load posts" });
   }
 };

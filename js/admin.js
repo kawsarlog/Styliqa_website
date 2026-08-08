@@ -62,6 +62,16 @@
     });
   }
 
+  /** Rewrite dead styliqa.studio hosts + bare assets/ paths to root-relative URLs. */
+  function normalizeAssetUrl(url) {
+    if (!url) return url;
+    let s = String(url).trim();
+    const m = s.match(/^https?:\/\/(?:www\.)?styliqa\.(?:studio|com)(\/.*)?$/i);
+    if (m) s = m[1] || "/";
+    if (/^assets\//i.test(s)) s = `/${s}`;
+    return s;
+  }
+
   async function api(path, options = {}) {
     const headers = {
       "Content-Type": "application/json",
@@ -70,7 +80,12 @@
     };
     const resp = await fetch(path, { ...options, headers });
     const data = await resp.json().catch(() => ({}));
-    if (!resp.ok) throw new Error(data.error || "Request failed");
+    if (!resp.ok) {
+      const msg = data.error || `Request failed (${resp.status})`;
+      if (resp.status === 401) throw new Error("Unauthorized — check admin token / VITE_ADMIN_TOKEN_HASH");
+      if (resp.status === 503) throw new Error(msg);
+      throw new Error(msg);
+    }
     return data;
   }
 
@@ -136,16 +151,18 @@
     document.getElementById("fCategory").value = row.category || "";
     document.getElementById("fCategorySlug").value = row.category_slug || "";
     document.getElementById("fReadTime").value = row.read_time || "";
-    document.getElementById("fHeroUrl").value = row.hero_img || "";
+    const hero = normalizeAssetUrl(row.hero_img) || "";
+    const og = normalizeAssetUrl(row.og_image) || "";
+    document.getElementById("fHeroUrl").value = hero;
     document.getElementById("fHeroAlt").value = row.hero_img_alt || "";
     document.getElementById("fExcerpt").value = row.excerpt || "";
     document.getElementById("fMetaTitle").value = row.meta_title || "";
     document.getElementById("fMetaDesc").value = row.meta_description || "";
     document.getElementById("fOgTitle").value = row.og_title || "";
     document.getElementById("fOgDesc").value = row.og_description || "";
-    document.getElementById("fOgImage").value = row.og_image || "";
-    if (row.hero_img) {
-      heroPreviewImg.src = row.hero_img;
+    document.getElementById("fOgImage").value = og;
+    if (hero) {
+      heroPreviewImg.src = hero;
       heroPreview.hidden = false;
     } else {
       heroPreview.hidden = true;
@@ -182,9 +199,8 @@
 
     postsList.innerHTML = posts
       .map((p) => {
-        const thumb = p.hero_img
-          ? `<img src="${p.hero_img}" alt="">`
-          : "";
+        const hero = normalizeAssetUrl(p.hero_img);
+        const thumb = hero ? `<img src="${escapeHtml(hero)}" alt="">` : "";
         return `<div class="post-row" data-id="${p.id}">
           <div class="post-row__thumb">${thumb}</div>
           <div style="min-width:0;flex:1">

@@ -13,6 +13,15 @@ function slugify(s) {
     .slice(0, 80);
 }
 
+function sendError(res, err) {
+  const status = err && err.status >= 400 && err.status < 600 ? err.status : 500;
+  // Never leak stack traces; keep message useful for ops (config / SQL / auth).
+  const error =
+    (err && err.message) ||
+    (status === 401 ? "Unauthorized" : status === 503 ? "Service unavailable" : "Server error");
+  res.status(status).json({ error });
+}
+
 module.exports = async function handler(req, res) {
   if (!requireAdmin(req, res)) return;
 
@@ -77,6 +86,6 @@ module.exports = async function handler(req, res) {
     res.status(405).json({ error: "Method not allowed" });
   } catch (err) {
     console.error("admin/posts:", err);
-    res.status(500).json({ error: err.message || "Server error" });
+    sendError(res, err);
   }
 };

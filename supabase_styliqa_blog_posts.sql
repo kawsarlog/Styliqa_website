@@ -125,8 +125,9 @@ insert into styliqa_blog_posts (
 )
 on conflict (slug) do nothing;
 
--- ── Fix existing rows that still use the dead styliqa.studio host ──
--- Safe to re-run. Prefer root-relative paths so styliqa.com / www both work.
+-- ── Fix existing rows: dead styliqa.studio host OR missing leading `/` ──
+-- Safe to re-run. Paths MUST be root-relative (`/assets/...`) so they work
+-- on /admin and /blog/... (bare `assets/...` resolves to the wrong folder).
 update styliqa_blog_posts
 set
   hero_img = '/assets/img/blog/cover-tech-pack-vs-flat-sketch.jpg',
@@ -140,6 +141,15 @@ set
   og_image = '/assets/img/og/og-blog-pattern-grading-101.jpg',
   updated_at = now()
 where slug = 'pattern-grading-101';
+
+-- Prefix any remaining bare assets/... values (hero or og) with /
+update styliqa_blog_posts
+set hero_img = '/' || hero_img, updated_at = now()
+where hero_img ~ '^assets/';
+
+update styliqa_blog_posts
+set og_image = '/' || og_image, updated_at = now()
+where og_image ~ '^assets/';
 
 select id, slug, status, category, hero_img, og_image, published_at
 from styliqa_blog_posts
