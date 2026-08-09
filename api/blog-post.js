@@ -81,7 +81,7 @@ module.exports = async function handler(req, res) {
     post.title.length > 42 ? `${post.title.slice(0, 40)}…` : post.title;
 
   const body = `<main id="main">
-<nav class="breadcrumb section-inner" aria-label="Breadcrumb">
+<nav class="breadcrumb" aria-label="Breadcrumb">
   <ol>
     <li><a href="/">Home</a></li>
     <li><a href="/blog">Blog</a></li>
@@ -103,22 +103,24 @@ module.exports = async function handler(req, res) {
 
 ${
   heroImg
-    ? `<img src="${escapeHtml(heroImg)}" alt="${escapeHtml(post.hero_img_alt || post.title)}" class="article-cover" width="1200" height="630">`
+    ? `<figure class="article-cover-wrap">
+  <img src="${escapeHtml(heroImg)}" alt="${escapeHtml(post.hero_img_alt || post.title)}" class="article-cover">
+</figure>`
     : ""
 }
 
 <article class="article">
-  <div class="section-inner article__body">
+  <div class="article__body">
     ${contentHtml}
   </div>
 
-  <div class="article__cta section-inner">
+  <div class="article__cta">
     <h2>Ready to take a style into production?</h2>
     <p>Styliqa builds flat sketches, full tech packs, and graded production files for men's, women's, and kids' apparel.</p>
     <a href="/#contact" class="btn btn--brand">Start a Project</a>
   </div>
 
-  <nav class="article__nav section-inner" aria-label="More articles">
+  <nav class="article__nav" aria-label="More articles">
     ${prev ? `<a href="/blog/${escapeHtml(prev.slug)}" class="text-link">← ${escapeHtml(prev.title)}</a>` : `<a href="/blog" class="text-link">← All articles</a>`}
     ${next ? `<a href="/blog/${escapeHtml(next.slug)}" class="text-link">Next: ${escapeHtml(next.title)} →</a>` : `<a href="/blog" class="text-link">All articles →</a>`}
   </nav>

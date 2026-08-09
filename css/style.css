@@ -24,6 +24,8 @@
 
   --nav-h: 84px;
   --edge: clamp(1.5rem, 5vw, 5rem);
+  /* Blog post reading column — wider than classic 68ch, still elegant */
+  --article-measure: 64rem;
   --z-nav: 100;
   --z-mobile-menu: 90;
 }
@@ -815,11 +817,11 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
 /* ============================================================
    Blog teaser
    ============================================================ */
-.blog-teaser { padding-block: clamp(5rem, 10vw, 8rem); background: var(--paper); }
+.blog-teaser { padding-block: clamp(3.5rem, 7vw, 5.5rem); background: var(--paper); }
 .blog-teaser__head { max-width: 56ch; }
 
 .blog-teaser__grid {
-  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.75rem;
@@ -856,7 +858,7 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
 .post-card__body p:not(.post-card__meta) { color: var(--muted); font-size: 0.95rem; text-wrap: pretty; }
 .post-card .text-link { margin-top: 0.4rem; }
 
-.blog-teaser__all { display: inline-block; margin-top: 2rem; }
+.blog-teaser__all { display: inline-block; margin-top: 1.5rem; }
 
 /* ============================================================
    Contact
@@ -1172,7 +1174,10 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
 }
 
 .breadcrumb {
+  max-width: var(--article-measure);
+  margin-inline: auto;
   padding-block: calc(var(--nav-h) + 1.5rem) 0;
+  padding-inline: var(--edge);
   font-size: 0.85rem;
   color: var(--muted);
 }
@@ -1183,6 +1188,9 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
 .breadcrumb li[aria-current] { color: var(--muted); }
 
 .article-header { padding-block: 1.5rem clamp(2rem, 5vw, 3rem); background: var(--paper); }
+.article-header .section-inner {
+  max-width: var(--article-measure);
+}
 .article-header__tag {
   display: inline-block;
   font-size: 0.78rem;
@@ -1201,7 +1209,7 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
   font-size: clamp(2rem, 4.2vw, 3.25rem);
   letter-spacing: -0.03em;
   line-height: 1.1;
-  max-width: 22ch;
+  max-width: 28ch;
   text-wrap: balance;
 }
 .article-header__meta {
@@ -1213,10 +1221,22 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
   color: var(--muted);
 }
 
+/* Inset hero: same measure as body; show full upload (no crop) */
+.article-cover-wrap {
+  max-width: var(--article-measure);
+  margin-inline: auto;
+  padding-inline: var(--edge);
+  background: var(--paper);
+}
 .article-cover {
   width: 100%;
-  aspect-ratio: 1200 / 630;
-  object-fit: cover;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  background: var(--paper-high);
+  border-radius: 0.75rem;
 }
 
 .article {
@@ -1224,8 +1244,9 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
   background: var(--paper);
 }
 .article__body {
-  max-width: 68ch;
+  max-width: var(--article-measure);
   margin-inline: auto;
+  padding-inline: var(--edge);
   font-size: 1.08rem;
   line-height: 1.75;
   color: var(--ink);
@@ -1261,7 +1282,7 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
 .article__callout strong { display: block; color: var(--brand-deep); margin-bottom: 0.35rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.02em; }
 
 .article__cta {
-  max-width: 68ch;
+  max-width: min(var(--article-measure), calc(100% - (2 * var(--edge))));
   margin: clamp(3rem, 6vw, 4rem) auto 0;
   background: var(--void);
   color: var(--cream-ink);
@@ -1279,8 +1300,9 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
 .article__cta .btn { margin-top: 1.5rem; }
 
 .article__nav {
-  max-width: 68ch;
+  max-width: var(--article-measure);
   margin: clamp(2rem, 4vw, 3rem) auto 0;
+  padding-inline: var(--edge);
   display: flex;
   justify-content: space-between;
   gap: 1rem;
