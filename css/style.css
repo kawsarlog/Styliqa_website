@@ -822,9 +822,10 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
 
 .blog-teaser__grid {
   margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 52rem;
 }
 .post-card {
   display: flex;

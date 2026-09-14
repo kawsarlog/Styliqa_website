@@ -212,10 +212,18 @@
               ${p.published_at ? `<span>· ${formatDate(p.published_at)}</span>` : ""}
             </div>
           </div>
-          <div class="row">
+          <div class="post-row__actions">
             ${p.status === "published" ? `<a class="btn btn--ghost" href="/blog/${encodeURIComponent(p.slug)}" target="_blank" rel="noopener">View</a>` : ""}
             <button type="button" class="btn btn--ghost" data-edit="${p.id}">Edit</button>
-            <button type="button" class="btn btn--danger" data-del="${p.id}">Delete</button>
+            <button type="button" class="btn btn--icon-danger" data-del="${p.id}" title="Delete post" aria-label="Delete post">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 6h18"/>
+                <path d="M8 6V4h8v2"/>
+                <path d="M19 6l-1 14H6L5 6"/>
+                <path d="M10 11v6"/>
+                <path d="M14 11v6"/>
+              </svg>
+            </button>
           </div>
         </div>`;
       })

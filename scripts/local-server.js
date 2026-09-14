@@ -5,7 +5,6 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
-const { pathToFileURL } = require("url");
 
 const ROOT = path.resolve(__dirname, "..");
 const PORT = Number(process.env.PORT) || 5544;
@@ -35,6 +34,7 @@ loadEnvFile(path.join(ROOT, ".env"));
 const blogIndex = require(path.join(ROOT, "api", "blog-index.js"));
 const blogPost = require(path.join(ROOT, "api", "blog-post.js"));
 const postsApi = require(path.join(ROOT, "api", "posts.js"));
+const adminPosts = require(path.join(ROOT, "api", "admin", "posts.js"));
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -77,7 +77,28 @@ function vercelRes(nodeRes) {
       nodeRes.writeHead(statusCode, headers);
       nodeRes.end(body);
     },
+    writeHead(code, hdrs) {
+      statusCode = code;
+      Object.assign(headers, hdrs || {});
+    },
   };
+}
+
+function readBody(req) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    req.on("data", (c) => chunks.push(c));
+    req.on("end", () => {
+      const raw = Buffer.concat(chunks).toString("utf8");
+      if (!raw) return resolve(undefined);
+      try {
+        resolve(JSON.parse(raw));
+      } catch {
+        resolve(raw);
+      }
+    });
+    req.on("error", reject);
+  });
 }
 
 function safeJoin(urlPath) {
@@ -112,16 +133,17 @@ const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url || "/", `http://localhost:${PORT}`);
     const pathname = url.pathname.replace(/\/+$/, "") || "/";
+    const query = Object.fromEntries(url.searchParams.entries());
 
     if (pathname === "/blog") {
-      await blogIndex({ method: req.method, url: req.url, query: {} }, vercelRes(res));
+      await blogIndex({ method: req.method, url: req.url, query: {}, headers: req.headers }, vercelRes(res));
       return;
     }
 
     const postMatch = pathname.match(/^\/blog\/([^/]+)$/);
     if (postMatch) {
       await blogPost(
-        { method: req.method, url: req.url, query: { slug: postMatch[1] } },
+        { method: req.method, url: req.url, query: { slug: postMatch[1] }, headers: req.headers },
         vercelRes(res),
       );
       return;
@@ -129,13 +151,25 @@ const server = http.createServer(async (req, res) => {
 
     if (pathname === "/api/posts") {
       await postsApi(
-        {
-          method: req.method,
-          url: req.url,
-          query: Object.fromEntries(url.searchParams.entries()),
-        },
+        { method: req.method, url: req.url, query, headers: req.headers },
         vercelRes(res),
       );
+      return;
+    }
+
+    if (pathname === "/api/admin/posts") {
+      const body = ["POST", "PUT", "PATCH", "DELETE"].includes(req.method || "")
+        ? await readBody(req)
+        : undefined;
+      await adminPosts(
+        { method: req.method, url: req.url, query, headers: req.headers, body },
+        vercelRes(res),
+      );
+      return;
+    }
+
+    if (pathname === "/admin") {
+      serveStatic(req, res, "/admin/index.html");
       return;
     }
 
@@ -152,4 +186,5 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, () => {
   console.log(`Styliqa local: http://localhost:${PORT}`);
   console.log(`Blog list:     http://localhost:${PORT}/blog`);
+  console.log(`Admin:         http://localhost:${PORT}/admin`);
 });

@@ -3,6 +3,19 @@
   if (!grid) return;
 
   const FALLBACK_HTML = grid.innerHTML;
+  const TITLE_MAX = 72;
+  const EXCERPT_MAX = 140;
+
+  function clipText(value, max) {
+    const text = String(value || "")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (!text) return "";
+    if (text.length <= max) return text;
+    const sliced = text.slice(0, max - 1);
+    const atWord = sliced.lastIndexOf(" ");
+    return `${(atWord > max * 0.6 ? sliced.slice(0, atWord) : sliced).trim()}…`;
+  }
 
   function revealCards(root) {
     const els = root.querySelectorAll("[data-reveal]");
@@ -10,7 +23,6 @@
       window.StyliqaReveal(els);
       return;
     }
-    // Scroll-reveal observer already ran on the static cards; mark replacements visible.
     els.forEach((el) => el.classList.add("is-visible"));
   }
 
@@ -20,12 +32,14 @@
         const meta = [p.category, p.read_time].filter(Boolean).join(" · ");
         const img = p.hero_img || "/assets/img/og/og-blog-index.png";
         const alt = escapeAttr(p.hero_img_alt || p.title);
-        return `<a href="/blog/${encodeURIComponent(p.slug)}" class="post-card reveal" data-reveal>
-        <img src="${escapeAttr(img)}" alt="${alt}" class="post-card__img" loading="lazy" width="1200" height="630">
-        <div class="post-card__body">
-          ${meta ? `<p class="post-card__meta">${escapeHtml(meta)}</p>` : ""}
-          <h3>${escapeHtml(p.title)}</h3>
-          ${p.excerpt ? `<p>${escapeHtml(p.excerpt)}</p>` : ""}
+        const title = clipText(p.title, TITLE_MAX);
+        const excerpt = clipText(p.excerpt, EXCERPT_MAX);
+        return `<a href="/blog/${encodeURIComponent(p.slug)}" class="post-row reveal" data-reveal>
+        <img src="${escapeAttr(img)}" alt="${alt}" class="post-row__img" loading="lazy" width="640" height="480">
+        <div class="post-row__body">
+          ${meta ? `<p class="post-row__meta">${escapeHtml(meta)}</p>` : ""}
+          <h3 class="post-row__title">${escapeHtml(title)}</h3>
+          ${excerpt ? `<p class="post-row__excerpt">${escapeHtml(excerpt)}</p>` : ""}
           <span class="text-link">Read the article →</span>
         </div>
       </a>`;
@@ -38,15 +52,11 @@
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then((data) => {
       const posts = (data && data.posts) || [];
-      if (!posts.length) {
-        // Keep the static markup baked into index.html.
-        return;
-      }
+      if (!posts.length) return;
       renderPosts(posts);
     })
     .catch(() => {
-      // Restore static fallback if something cleared the grid mid-flight.
-      if (!grid.querySelector(".post-card")) grid.innerHTML = FALLBACK_HTML;
+      if (!grid.querySelector(".post-row")) grid.innerHTML = FALLBACK_HTML;
     });
 
   function escapeHtml(str) {
