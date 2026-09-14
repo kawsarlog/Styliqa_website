@@ -6,6 +6,18 @@ const {
 } = require("../lib/blog-layout");
 const { fetchPublishedPosts } = require("../lib/blog-db");
 
+const TITLE_MAX = 72;
+const EXCERPT_MAX = 140;
+
+function clipText(value, max) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (!text) return "";
+  if (text.length <= max) return text;
+  const sliced = text.slice(0, max - 1);
+  const atWord = sliced.lastIndexOf(" ");
+  return `${(atWord > max * 0.6 ? sliced.slice(0, atWord) : sliced).trim()}…`;
+}
+
 module.exports = async function handler(req, res) {
   let posts = [];
   try {
@@ -21,12 +33,14 @@ module.exports = async function handler(req, res) {
           const img =
             normalizeAssetUrl(p.hero_img) || "/assets/img/og/og-blog-index.png";
           const alt = escapeHtml(p.hero_img_alt || p.title);
-          return `<a href="/blog/${escapeHtml(p.slug)}" class="post-card">
-        <img src="${escapeHtml(img)}" alt="${alt}" class="post-card__img" loading="lazy" width="1200" height="630">
-        <div class="post-card__body">
-          ${meta ? `<p class="post-card__meta">${escapeHtml(meta)}</p>` : ""}
-          <h3>${escapeHtml(p.title)}</h3>
-          ${p.excerpt ? `<p>${escapeHtml(p.excerpt)}</p>` : ""}
+          const title = clipText(p.title, TITLE_MAX);
+          const excerpt = clipText(p.excerpt, EXCERPT_MAX);
+          return `<a href="/blog/${escapeHtml(p.slug)}" class="post-row">
+        <img src="${escapeHtml(img)}" alt="${alt}" class="post-row__img" loading="lazy" width="640" height="480">
+        <div class="post-row__body">
+          ${meta ? `<p class="post-row__meta">${escapeHtml(meta)}</p>` : ""}
+          <h3 class="post-row__title">${escapeHtml(title)}</h3>
+          ${excerpt ? `<p class="post-row__excerpt">${escapeHtml(excerpt)}</p>` : ""}
           <span class="text-link">Read the article →</span>
         </div>
       </a>`;
@@ -50,7 +64,7 @@ module.exports = async function handler(req, res) {
 </section>
 <section class="blog-index">
   <div class="section-inner">
-    <div class="blog-index__grid">
+    <div class="blog-index__list">
       ${cards}
     </div>
   </div>
