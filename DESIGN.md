@@ -25,13 +25,13 @@ Contrast checked: `--ink` on `--paper` ≈ 13:1. `--cream-ink` on `--void` ≈ 1
 
 ## Typography
 
-- **Display / headings:** Bodoni Moda (variable, optical size axis) — a genuine high-contrast didone with real fashion-editorial pedigree (Vogue/Bazaar-adjacent), swapped in after Fraunces/Inter both flagged as overused-AI-default fonts by the impeccable detector. Italic weight used sparingly for one accent word per hero/section, never gradient text.
+- **Display / headings:** Source Serif 4 (variable, optical size axis) — an editorial serif with clear stroke contrast that stays readable at large section-title sizes; replaced Bodoni Moda after its extreme didone hairlines read as abstract/hard to scan. Italic weight used sparingly for one accent word per hero/section, never gradient text.
 - **Body / UI:** Archivo — geometric-grotesk sans, high legibility at small sizes, wide weight range for hierarchy without extra families.
-- Contrast axis: high-contrast didone serif display vs. grotesk sans body — no second sans anywhere.
+- Contrast axis: readable display serif vs. grotesk sans body — no second sans anywhere.
 - Load as two separate Google Fonts `<link>` tags (not one combined `family=A&family=B` URL) so tooling that parses font links per-request sees both faces.
 - Hero clamp: `clamp(2.75rem, 6vw, 5.5rem)`, letter-spacing ≥ -0.03em, `text-wrap: balance`.
 - Body cap: 68ch measure, `text-wrap: pretty` on long paragraphs.
-- No uppercase tracked eyebrows as default scaffolding. Section labels (when used) are set as small Fraunces italic phrases, not tracked-caps kickers.
+- No uppercase tracked eyebrows as default scaffolding. Section labels (when used) are set as small italic display-serif phrases, not tracked-caps kickers.
 
 ## Layout
 

@@ -31,9 +31,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20260914b">
+<link rel="stylesheet" href="css/style.css?v=20260915e">
 
 <script type="application/ld+json">
 {
@@ -90,7 +90,7 @@
       <a href="#contact">Contact</a>
     </nav>
 
-    <a href="#contact" class="btn btn--brand btn--sm nav__cta">Book a Consultation</a>
+    <a href="https://calendly.com/adnanmojid/30min" target="_blank" rel="noopener" class="btn btn--brand btn--sm nav__cta">Book a Consultation</a>
 
     <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span><span></span>
@@ -105,7 +105,7 @@
     <a href="#reviews">Reviews</a>
     <a href="/blog">Blog</a>
     <a href="#contact">Contact</a>
-    <a href="#contact" class="btn btn--brand btn--sm">Book a Consultation</a>
+    <a href="https://calendly.com/adnanmojid/30min" target="_blank" rel="noopener" class="btn btn--brand btn--sm">Book a Consultation</a>
   </div>
 </header>
 
@@ -180,11 +180,145 @@
 <section class="about" id="about">
   <div class="section-inner about__grid">
     <div class="about__figure reveal" data-reveal>
+      <!-- Previous left visual (logo + dashed stitch) — kept for compare / revert
       <div class="about__badge">
         <img src="assets/img/logo.jpg" alt="Styliqa studio mark" class="about__logo">
       </div>
       <svg class="about__stitch" viewBox="0 0 300 400" aria-hidden="true">
         <path class="draw-line" d="M40 20 C 20 100 90 140 60 220 C 30 300 100 340 80 380" stroke="currentColor" stroke-width="1.2" stroke-dasharray="6 8" fill="none"/>
+      </svg>
+      -->
+
+      <!-- Craft motif: studio sewing sequence (needle → seam → scissors) -->
+      <svg class="about__craft" viewBox="0 0 280 420" role="img" aria-label="Studio craft: sewing a seam, then trimming a pattern">
+        <defs>
+          <linearGradient id="about-craft-thread" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="currentColor" stop-opacity="0.15"/>
+            <stop offset="28%" stop-color="currentColor" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="currentColor" stop-opacity="0.95"/>
+          </linearGradient>
+          <linearGradient id="about-craft-panel-fill" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="currentColor" stop-opacity="0.04"/>
+            <stop offset="100%" stop-color="currentColor" stop-opacity="0.01"/>
+          </linearGradient>
+          <mask id="about-craft-mask" maskUnits="userSpaceOnUse">
+            <path class="about__craft-mask-path" pathLength="100"
+              d="M148 72 C 134 118 168 152 148 196 C 128 240 168 274 148 318 C 132 348 156 372 148 388"
+              fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+          </mask>
+          <mask id="about-craft-cut-mask" maskUnits="userSpaceOnUse">
+            <path class="about__craft-cut-mask-path" pathLength="100"
+              d="M78 96 C 70 140 88 178 74 220 C 62 258 82 298 70 338"
+              fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+          </mask>
+        </defs>
+
+        <!-- Floating pattern piece (left) -->
+        <g class="about__craft-pattern" aria-hidden="true">
+          <path class="about__craft-pattern-outline" pathLength="100"
+            d="M42 108 C 28 128 24 168 32 208 C 40 248 58 278 72 302 L 86 288 C 74 264 58 238 52 208 C 46 174 48 140 58 122 Z"
+            fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+          <path class="about__craft-pattern-notch" d="M52 168 L58 168 M54 164 L54 172" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
+          <circle class="about__craft-pattern-dot" cx="48" cy="200" r="1.4" fill="currentColor"/>
+        </g>
+
+        <!-- Fabric panel -->
+        <rect class="about__craft-panel" x="88" y="58" width="132" height="342" rx="3"
+          fill="url(#about-craft-panel-fill)" stroke="currentColor" stroke-width="0.85"/>
+        <g class="about__craft-grain" aria-hidden="true">
+          <line x1="98" y1="98"  x2="210" y2="98"/>
+          <line x1="98" y1="138" x2="210" y2="138"/>
+          <line x1="98" y1="178" x2="210" y2="178"/>
+          <line x1="98" y1="218" x2="210" y2="218"/>
+          <line x1="98" y1="258" x2="210" y2="258"/>
+          <line x1="98" y1="298" x2="210" y2="298"/>
+          <line x1="98" y1="338" x2="210" y2="338"/>
+          <line x1="98" y1="378" x2="210" y2="378"/>
+        </g>
+        <line class="about__craft-guide" x1="104" y1="78" x2="104" y2="380" stroke="currentColor" stroke-width="0.55" stroke-dasharray="2 8"/>
+        <line class="about__craft-guide" x1="204" y1="78" x2="204" y2="380" stroke="currentColor" stroke-width="0.55" stroke-dasharray="2 8"/>
+
+        <!-- Corner pins -->
+        <g class="about__craft-pins" aria-hidden="true">
+          <g transform="translate(92 64)"><line x1="0" y1="0" x2="0" y2="10" stroke="currentColor" stroke-width="1"/><circle cx="0" cy="0" r="2.2" fill="currentColor"/></g>
+          <g transform="translate(216 64)"><line x1="0" y1="0" x2="0" y2="10" stroke="currentColor" stroke-width="1"/><circle cx="0" cy="0" r="2.2" fill="currentColor"/></g>
+          <g transform="translate(92 392)"><line x1="0" y1="0" x2="0" y2="-10" stroke="currentColor" stroke-width="1"/><circle cx="0" cy="0" r="2.2" fill="currentColor"/></g>
+          <g transform="translate(216 392)"><line x1="0" y1="0" x2="0" y2="-10" stroke="currentColor" stroke-width="1"/><circle cx="0" cy="0" r="2.2" fill="currentColor"/></g>
+        </g>
+
+        <!-- Measuring tape -->
+        <g class="about__craft-tape" aria-hidden="true">
+          <line x1="228" y1="78" x2="228" y2="380" stroke="currentColor" stroke-width="0.95"/>
+          <line x1="228" y1="78"  x2="242" y2="78"/>
+          <line x1="228" y1="118" x2="236" y2="118"/>
+          <line x1="228" y1="158" x2="242" y2="158"/>
+          <line x1="228" y1="198" x2="236" y2="198"/>
+          <line x1="228" y1="238" x2="242" y2="238"/>
+          <line x1="228" y1="278" x2="236" y2="278"/>
+          <line x1="228" y1="318" x2="242" y2="318"/>
+          <line x1="228" y1="358" x2="236" y2="358"/>
+          <line x1="228" y1="380" x2="242" y2="380"/>
+        </g>
+
+        <!-- Thread spool -->
+        <g class="about__craft-spool" transform="translate(148 42)">
+          <rect x="-12" y="-8" width="24" height="16" rx="2.8" fill="none" stroke="currentColor" stroke-width="1.15"/>
+          <g class="about__craft-spool-spin">
+            <ellipse cx="0" cy="0" rx="8" ry="4.4" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.75"/>
+            <path class="about__craft-spool-shimmer" d="M-6.5 -1.2 Q 0 -5 6.5 -1.2" fill="none" stroke="currentColor" stroke-width="0.75"/>
+            <path d="M-6.5 1.2 Q 0 5 6.5 1.2" fill="none" stroke="currentColor" stroke-width="0.7" opacity="0.5"/>
+            <circle cx="0" cy="0" r="1.5" fill="currentColor" opacity="0.5"/>
+          </g>
+          <line x1="-14.5" y1="-5" x2="-14.5" y2="5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+          <line x1="14.5" y1="-5" x2="14.5" y2="5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+        </g>
+
+        <!-- Feed thread -->
+        <path class="about__craft-feed" pathLength="100"
+          d="M148 50 C 148 56 148 64 148 72"
+          fill="none" stroke="currentColor" stroke-width="1.05" stroke-linecap="round"/>
+
+        <!-- Seam underlay + dashed stitches -->
+        <path class="about__craft-seam" pathLength="100"
+          d="M148 72 C 134 118 168 152 148 196 C 128 240 168 274 148 318 C 132 348 156 372 148 388"
+          fill="none" stroke="url(#about-craft-thread)" stroke-width="1.2" stroke-linecap="round"/>
+        <path class="about__craft-stitches" pathLength="100" mask="url(#about-craft-mask)"
+          d="M148 72 C 134 118 168 152 148 196 C 128 240 168 274 148 318 C 132 348 156 372 148 388"
+          fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3.4 7.6" stroke-linecap="round"/>
+
+        <g class="about__craft-dots" mask="url(#about-craft-mask)" aria-hidden="true">
+          <circle cx="148" cy="72"  r="1.45" fill="currentColor"/>
+          <circle cx="140" cy="124" r="1.2"  fill="currentColor"/>
+          <circle cx="156" cy="160" r="1.2"  fill="currentColor"/>
+          <circle cx="148" cy="196" r="1.45" fill="currentColor"/>
+          <circle cx="136" cy="248" r="1.2"  fill="currentColor"/>
+          <circle cx="158" cy="286" r="1.2"  fill="currentColor"/>
+          <circle cx="148" cy="318" r="1.45" fill="currentColor"/>
+          <circle cx="140" cy="358" r="1.2"  fill="currentColor"/>
+          <circle cx="148" cy="388" r="1.45" fill="currentColor"/>
+        </g>
+
+        <!-- Cut path (revealed when scissors travel) -->
+        <path class="about__craft-cut" pathLength="100" mask="url(#about-craft-cut-mask)"
+          d="M78 96 C 70 140 88 178 74 220 C 62 258 82 298 70 338"
+          fill="none" stroke="currentColor" stroke-width="1.15" stroke-dasharray="2.8 5.5" stroke-linecap="round"/>
+
+        <!-- Scissors -->
+        <g class="about__craft-scissors" aria-hidden="true">
+          <circle cx="-5" cy="0" r="3.2" fill="none" stroke="currentColor" stroke-width="1.05"/>
+          <circle cx="5" cy="0" r="3.2" fill="none" stroke="currentColor" stroke-width="1.05"/>
+          <path d="M-2.2 -1.2 L-11 -16 M2.2 -1.2 L11 -16" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/>
+          <path d="M-1.5 2 L-3 14 M1.5 2 L3 14" stroke="currentColor" stroke-width="1.05" stroke-linecap="round"/>
+          <circle cx="0" cy="0" r="1.15" fill="currentColor"/>
+        </g>
+
+        <!-- Needle -->
+        <g class="about__craft-needle">
+          <path d="M0 0 L0 48" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          <ellipse cx="0" cy="8.5" rx="2.5" ry="3.8" fill="none" stroke="currentColor" stroke-width="1.1"/>
+          <path d="M0 48 L-2.4 56.5 L0 66 L2.4 56.5 Z" fill="currentColor"/>
+          <path class="about__craft-loop" d="M2.4 8.5 C 15 2 20 -7 11 -16" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+        </g>
       </svg>
     </div>
 
@@ -217,9 +351,9 @@
 
     <div class="services__grid">
 
-      <article class="service reveal service--wide" data-reveal>
+      <article class="service reveal service--wide" data-reveal style="--service-delay: 0s">
         <div class="service__icon" aria-hidden="true">
-          <svg viewBox="0 0 64 64"><path class="draw-line" d="M18 14h28l6 10-6 10H18l-6-10z" stroke="currentColor" stroke-width="1.6" fill="none"/><path class="draw-line" d="M32 34v22M20 56h24" stroke="currentColor" stroke-width="1.6"/></svg>
+          <svg viewBox="0 0 64 64" fill="none"><path class="draw-line" d="M18 14h28l6 10-6 10H18l-6-10z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path class="draw-line" d="M32 34v22M20 56h24" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </div>
         <h3>Tech Pack &amp; Flat Sketch</h3>
         <p>Clean, factory-ready technical drawings and full tech packs: front &amp; back illustration, graded POM sheets, BOM, trims, labels and print placement.</p>
@@ -229,34 +363,34 @@
         <span class="service__from">From $30 / project</span>
       </article>
 
-      <article class="service reveal" data-reveal>
+      <article class="service reveal" data-reveal style="--service-delay: 0.35s">
         <div class="service__icon" aria-hidden="true">
-          <svg viewBox="0 0 64 64"><path class="draw-line" d="M12 46 32 10l20 36z" stroke="currentColor" stroke-width="1.6" fill="none"/><path class="draw-line" d="M22 46h20M32 30v16" stroke="currentColor" stroke-width="1.6"/></svg>
+          <svg viewBox="0 0 64 64" fill="none"><path class="draw-line" d="M12 46 32 10l20 36z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path class="draw-line" d="M22 46h20M32 30v16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </div>
         <h3>Pattern Making &amp; Grading</h3>
         <p>Precise sewing patterns graded across your full size range, so fit stays consistent from XS to 4XL.</p>
         <span class="service__from">$600–$800 · 7–30 days</span>
       </article>
 
-      <article class="service reveal" data-reveal>
+      <article class="service reveal" data-reveal style="--service-delay: 0.7s">
         <div class="service__icon" aria-hidden="true">
-          <svg viewBox="0 0 64 64"><rect class="draw-line" x="12" y="12" width="40" height="40" rx="2" stroke="currentColor" stroke-width="1.6" fill="none"/><path class="draw-line" d="M12 34h40M32 12v40" stroke="currentColor" stroke-width="1"/></svg>
+          <svg viewBox="0 0 64 64" fill="none"><rect class="draw-line" x="12" y="12" width="40" height="40" rx="2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="draw-line draw-line--grid" d="M12 34h40M32 12v40" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
         </div>
         <h3>3D Garment Visualization</h3>
         <p>See the fit before you cut a single yard. Catch problems, approve faster, and pitch buyers with a realistic render.</p>
       </article>
 
-      <article class="service reveal" data-reveal>
+      <article class="service reveal" data-reveal style="--service-delay: 1.05s">
         <div class="service__icon" aria-hidden="true">
-          <svg viewBox="0 0 64 64"><path class="draw-line" d="M20 10h24l6 8-6 8H20l-6-8z" stroke="currentColor" stroke-width="1.6" fill="none"/><path class="draw-line" d="M32 26v30" stroke="currentColor" stroke-width="1.6" stroke-dasharray="4 5"/></svg>
+          <svg viewBox="0 0 64 64" fill="none"><path class="draw-line" d="M20 10h24l6 8-6 8H20l-6-8z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path class="draw-line draw-line--seam" d="M32 26v30" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </div>
         <h3>PDF Sewing Patterns for Etsy</h3>
         <p>Layered, print-at-home PDF patterns with clear illustrated instructions and listing-ready mockups.</p>
       </article>
 
-      <article class="service reveal" data-reveal>
+      <article class="service reveal" data-reveal style="--service-delay: 1.4s">
         <div class="service__icon" aria-hidden="true">
-          <svg viewBox="0 0 64 64"><circle class="draw-line" cx="32" cy="32" r="20" stroke="currentColor" stroke-width="1.6" fill="none"/><path class="draw-line" d="M32 20v12l8 6" stroke="currentColor" stroke-width="1.6"/></svg>
+          <svg viewBox="0 0 64 64" fill="none"><circle class="draw-line" cx="32" cy="32" r="20" stroke="currentColor" stroke-width="1.6"/><path class="draw-line" d="M32 20v12l8 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <h3>Production Partner</h3>
         <p>Ongoing support through sampling and production runs, as your technical point of contact from concept to container.</p>
@@ -677,7 +811,7 @@
       <p class="contact__sub">Tell us about your project, whether it's a single tech pack or a full graded size range. We reply within about an hour.</p>
 
       <div class="contact__channels">
-        <a href="https://www.fiverr.com/designerisrat" target="_blank" rel="noopener" class="btn btn--brand">Book a Consultation</a>
+        <a href="https://calendly.com/adnanmojid/30min" target="_blank" rel="noopener" class="btn btn--brand">Book a Consultation</a>
         <a href="https://www.instagram.com/styliqa.studio/" target="_blank" rel="noopener" class="btn btn--ghost-light">Message on Instagram</a>
       </div>
 

@@ -9,7 +9,7 @@
   --terracotta: #c97b5b;
   --muted: color-mix(in srgb, #241a18 66%, transparent);
   --line: color-mix(in srgb, #241a18 12%, transparent);
-  --font-display: "Bodoni Moda", Georgia, serif;
+  --font-display: "Source Serif 4", Georgia, serif;
   --font-body: "Archivo", system-ui, sans-serif;
 }
 

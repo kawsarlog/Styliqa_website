@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://styliqa.studio/sitemap.xml
+Sitemap: https://www.styliqa.com/sitemap.xml

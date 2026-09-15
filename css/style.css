@@ -16,7 +16,7 @@
   --line: oklch(0.229 0.017 31.4 / 0.12);
   --line-on-dark: oklch(0.993 0.005 67.8 / 0.16);
 
-  --font-display: "Bodoni Moda", "Didot", "Iowan Old Style", serif;
+  --font-display: "Source Serif 4", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   --font-body: "Archivo", system-ui, sans-serif;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -92,8 +92,8 @@ body {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: clamp(2rem, 3.6vw, 3rem);
-  letter-spacing: -0.03em;
-  line-height: 1.12;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
   color: var(--ink);
   text-wrap: balance;
 }
@@ -285,9 +285,9 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
 
 /* ============================================================
    Decorative line-draw SVG motifs
-   One signature draw-in moment (hero + contact bookend). Everything
-   else (about stitch, work tiles) renders as static line art, kept
-   deliberately quiet per the "light animation" brief.
+   One signature draw-in moment (hero + contact bookend). About
+   craft motif has its own intentional sew loop; work tiles stay
+   static line art per the "light animation" brief.
    ============================================================ */
 .hero__svg .draw-line,
 .hero__motif--contact .draw-line {
@@ -359,8 +359,8 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
   font-family: var(--font-display);
   font-weight: 600;
   font-size: clamp(2.75rem, 6.4vw, 5.5rem);
-  letter-spacing: -0.03em;
-  line-height: 1.04;
+  letter-spacing: -0.02em;
+  line-height: 1.06;
   text-wrap: balance;
   max-width: 16ch;
 }
@@ -504,6 +504,228 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
   opacity: 0.55;
 }
 
+/* About craft motif — cinematic studio sew → trim sequence */
+.about__craft {
+  --craft-dur: 11.5s;
+  --craft-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --craft-ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  width: min(100%, 300px);
+  height: auto;
+  color: var(--brand);
+  display: block;
+  margin-inline: auto;
+}
+.about__craft-panel {
+  opacity: 0.85;
+}
+.about__craft-grain {
+  stroke: currentColor;
+  stroke-width: 0.4;
+  opacity: 0.06;
+  pointer-events: none;
+}
+.about__craft-guide {
+  opacity: 0.2;
+}
+.about__craft-tape {
+  color: var(--terracotta);
+  opacity: 0.5;
+  stroke-linecap: round;
+}
+.about__craft-tape line {
+  stroke: currentColor;
+  stroke-width: 0.85;
+}
+.about__craft-pins {
+  color: var(--terracotta);
+  opacity: 0;
+}
+.about__craft-pattern {
+  color: var(--brand);
+  opacity: 0.55;
+}
+.about__craft-pattern-outline {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+.about__craft-pattern-notch,
+.about__craft-pattern-dot {
+  opacity: 0;
+}
+.about__craft-spool {
+  color: var(--brand);
+}
+.about__craft-spool-spin {
+  transform-origin: center;
+  transform-box: fill-box;
+}
+.about__craft-spool-shimmer {
+  opacity: 0.45;
+}
+.about__craft-feed,
+.about__craft-seam,
+.about__craft-mask-path,
+.about__craft-cut-mask-path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+.about__craft-cut {
+  color: var(--terracotta);
+  opacity: 0.7;
+}
+.about__craft-needle {
+  offset-path: path("M148 72 C 134 118 168 152 148 196 C 128 240 168 274 148 318 C 132 348 156 372 148 388");
+  offset-rotate: auto 90deg;
+  offset-distance: 0%;
+  opacity: 0;
+}
+.about__craft-scissors {
+  offset-path: path("M78 96 C 70 140 88 178 74 220 C 62 258 82 298 70 338");
+  offset-rotate: auto 90deg;
+  offset-distance: 0%;
+  opacity: 0;
+  color: var(--brand-deep);
+}
+.about__craft-loop {
+  opacity: 0.4;
+}
+.about__craft-dots {
+  opacity: 0.65;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .about__craft-pattern-outline {
+    animation: about-pattern-draw var(--craft-dur) var(--craft-ease) infinite;
+  }
+  .about__craft-pattern-notch,
+  .about__craft-pattern-dot {
+    animation: about-pattern-mark var(--craft-dur) var(--craft-ease-soft) infinite;
+  }
+  .about__craft-pins {
+    animation: about-pins-in var(--craft-dur) var(--craft-ease) infinite;
+  }
+  .about__craft-feed {
+    animation: about-feed-draw var(--craft-dur) var(--craft-ease) infinite;
+  }
+  .about__craft-seam,
+  .about__craft-mask-path {
+    animation: about-seam-draw var(--craft-dur) var(--craft-ease) infinite;
+  }
+  .about__craft-needle {
+    animation: about-needle-sew var(--craft-dur) var(--craft-ease-soft) infinite;
+  }
+  .about__craft-loop {
+    animation: about-loop-breathe var(--craft-dur) var(--craft-ease-soft) infinite;
+  }
+  .about__craft-spool-spin {
+    animation: about-spool-turn var(--craft-dur) var(--craft-ease-soft) infinite;
+  }
+  .about__craft-spool-shimmer {
+    animation: about-spool-shimmer var(--craft-dur) var(--craft-ease-soft) infinite;
+  }
+  .about__craft-cut-mask-path {
+    animation: about-cut-draw var(--craft-dur) var(--craft-ease) infinite;
+  }
+  .about__craft-scissors {
+    animation: about-scissors-cut var(--craft-dur) var(--craft-ease-soft) infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about__craft-feed,
+  .about__craft-seam,
+  .about__craft-mask-path,
+  .about__craft-pattern-outline,
+  .about__craft-cut-mask-path {
+    stroke-dashoffset: 0;
+  }
+  .about__craft-pattern-notch,
+  .about__craft-pattern-dot,
+  .about__craft-pins {
+    opacity: 0.7;
+  }
+  .about__craft-needle {
+    opacity: 1;
+    offset-distance: 58%;
+  }
+  .about__craft-scissors {
+    opacity: 0.85;
+    offset-distance: 55%;
+  }
+}
+
+/* Phase map (~11.5s): settle → sew → hold → trim → rest → reset */
+@keyframes about-pattern-draw {
+  0%   { stroke-dashoffset: 100; opacity: 0.2; }
+  8%   { stroke-dashoffset: 0; opacity: 0.55; }
+  86%  { stroke-dashoffset: 0; opacity: 0.55; }
+  94%  { stroke-dashoffset: 100; opacity: 0.15; }
+  100% { stroke-dashoffset: 100; opacity: 0.15; }
+}
+@keyframes about-pattern-mark {
+  0%, 10% { opacity: 0; }
+  16%, 86% { opacity: 0.6; }
+  94%, 100% { opacity: 0; }
+}
+@keyframes about-pins-in {
+  0%, 4% { opacity: 0; }
+  10%, 88% { opacity: 0.75; }
+  95%, 100% { opacity: 0; }
+}
+@keyframes about-feed-draw {
+  0%   { stroke-dashoffset: 100; opacity: 0.2; }
+  6%   { stroke-dashoffset: 0; opacity: 0.6; }
+  70%  { stroke-dashoffset: 0; opacity: 0.55; }
+  78%  { stroke-dashoffset: 0; opacity: 0.25; }
+  88%  { stroke-dashoffset: 100; opacity: 0.1; }
+  100% { stroke-dashoffset: 100; opacity: 0.1; }
+}
+@keyframes about-seam-draw {
+  0%, 10% { stroke-dashoffset: 100; }
+  58%     { stroke-dashoffset: 0; }
+  78%     { stroke-dashoffset: 0; }
+  88%     { stroke-dashoffset: 100; }
+  100%    { stroke-dashoffset: 100; }
+}
+@keyframes about-needle-sew {
+  0%, 8%  { offset-distance: 0%; opacity: 0; }
+  12%     { offset-distance: 0%; opacity: 1; }
+  58%     { offset-distance: 100%; opacity: 1; }
+  64%     { offset-distance: 100%; opacity: 0; }
+  100%    { offset-distance: 0%; opacity: 0; }
+}
+@keyframes about-loop-breathe {
+  0%, 12% { opacity: 0.25; }
+  35%     { opacity: 0.7; }
+  58%     { opacity: 0.4; }
+  70%, 100% { opacity: 0.2; }
+}
+@keyframes about-spool-turn {
+  0%, 10% { transform: rotate(0deg); }
+  58%     { transform: rotate(420deg); }
+  70%, 100% { transform: rotate(420deg); }
+}
+@keyframes about-spool-shimmer {
+  0%, 10% { opacity: 0.3; }
+  30%     { opacity: 0.75; }
+  58%     { opacity: 0.4; }
+  100%    { opacity: 0.3; }
+}
+@keyframes about-cut-draw {
+  0%, 66% { stroke-dashoffset: 100; }
+  82%     { stroke-dashoffset: 0; }
+  90%     { stroke-dashoffset: 0; }
+  96%     { stroke-dashoffset: 100; }
+  100%    { stroke-dashoffset: 100; }
+}
+@keyframes about-scissors-cut {
+  0%, 64% { offset-distance: 0%; opacity: 0; }
+  68%     { offset-distance: 0%; opacity: 1; }
+  82%     { offset-distance: 100%; opacity: 1; }
+  88%     { offset-distance: 100%; opacity: 0; }
+  100%    { offset-distance: 0%; opacity: 0; }
+}
+
 .about__lede {
   font-size: 1.15rem;
   color: var(--ink);
@@ -531,7 +753,13 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
 
 @media (max-width: 900px) {
   .about__grid { grid-template-columns: 1fr; }
-  .about__figure { max-width: 260px; margin-inline: auto; aspect-ratio: 1; }
+  .about__figure {
+    max-width: 220px;
+    margin-inline: auto;
+    aspect-ratio: auto;
+    min-height: 0;
+  }
+  .about__craft { width: 100%; }
 }
 
 /* ============================================================
@@ -548,31 +776,207 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
   gap: 1.5rem;
 }
 .service {
-  background: var(--paper-high);
-  border: 1px solid var(--line);
+  --service-delay: 0s;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      165deg,
+      color-mix(in oklch, var(--paper-high) 92%, var(--terracotta) 8%) 0%,
+      var(--paper-high) 42%,
+      var(--paper-high) 100%
+    );
+  border: 1px solid color-mix(in oklch, var(--line) 85%, var(--brand) 15%);
   border-radius: 1.25rem;
   padding: 2rem;
-  transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo);
+  box-shadow: 0 1px 0 color-mix(in oklch, var(--cream-ink) 70%, transparent);
+  transition:
+    transform 0.55s var(--ease-out-expo),
+    box-shadow 0.55s var(--ease-out-expo),
+    border-color 0.45s var(--ease-out-quart),
+    background-color 0.45s var(--ease-out-quart);
 }
-.service:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 2rem 3rem -2rem oklch(0.229 0.017 31.4 / 0.3);
+/* Soft stitch rule — textile cue without competing with content */
+.service::before {
+  content: "";
+  position: absolute;
+  top: 1rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  border-top: 1px dashed color-mix(in oklch, var(--brand) 28%, transparent);
+  opacity: 0.45;
+  pointer-events: none;
+  transition: opacity 0.45s var(--ease-out-quart), border-color 0.45s var(--ease-out-quart);
+}
+/* Quiet terracotta wash in the corner */
+.service::after {
+  content: "";
+  position: absolute;
+  right: -18%;
+  bottom: -28%;
+  width: 55%;
+  height: 55%;
+  background: radial-gradient(
+    circle at center,
+    color-mix(in oklch, var(--terracotta) 18%, transparent) 0%,
+    transparent 70%
+  );
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.55s var(--ease-out-quart), transform 0.55s var(--ease-out-expo);
+}
+.service:hover,
+.service:focus-within {
+  transform: translateY(-7px);
+  border-color: color-mix(in oklch, var(--brand) 42%, var(--line));
+  box-shadow:
+    0 1.75rem 2.75rem -1.75rem oklch(0.229 0.017 31.4 / 0.28),
+    0 0 0 1px color-mix(in oklch, var(--brand) 8%, transparent);
+}
+.service:hover::before,
+.service:focus-within::before {
+  opacity: 0.75;
+  border-color: color-mix(in oklch, var(--brand) 48%, transparent);
+}
+.service:hover::after,
+.service:focus-within::after {
+  opacity: 0.85;
+  transform: scale(1.08) translate(-4%, -4%);
 }
 .service--wide { grid-column: span 2; }
 @media (max-width: 720px) { .service--wide { grid-column: span 1; } }
 
 .service__icon {
-  width: 52px;
-  height: 52px;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.35rem;
+  margin-top: 0.35rem;
+  padding: 0.55rem;
   color: var(--brand);
-  margin-bottom: 1.25rem;
+  border-radius: 0.9rem;
+  background: color-mix(in oklch, var(--brand) 9%, var(--paper-high));
+  border: 1px solid color-mix(in oklch, var(--brand) 16%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in oklch, var(--cream-ink) 80%, transparent);
+  transform-origin: 50% 60%;
+  transition:
+    background-color 0.45s var(--ease-out-quart),
+    border-color 0.45s var(--ease-out-quart),
+    color 0.45s var(--ease-out-quart),
+    box-shadow 0.45s var(--ease-out-quart);
 }
-.service__icon svg { width: 100%; height: 100%; }
-.service__icon .draw-line { stroke-dasharray: 220; stroke-dashoffset: 220; animation: none; transition: stroke-dashoffset 0.9s var(--ease-out-expo); }
-.service:hover .service__icon .draw-line,
-.service:focus-within .service__icon .draw-line { stroke-dashoffset: 0; }
+.service__icon svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.service:hover .service__icon,
+.service:focus-within .service__icon {
+  color: var(--brand-deep);
+  background: color-mix(in oklch, var(--brand) 14%, var(--paper-high));
+  border-color: color-mix(in oklch, var(--brand) 32%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklch, var(--cream-ink) 80%, transparent),
+    0 0.55rem 1.1rem -0.7rem color-mix(in oklch, var(--brand) 35%, transparent);
+}
+
+/* Ambient craft motion — slow stitch + soft float (no hover needed) */
+@media (prefers-reduced-motion: no-preference) {
+  .service__icon {
+    animation: service-icon-float 5.6s var(--ease-out-quart) infinite;
+    animation-delay: var(--service-delay);
+  }
+  .service__icon .draw-line {
+    stroke-dasharray: 160;
+    stroke-dashoffset: 42;
+    animation: service-stitch-draw 7.5s var(--ease-out-quart) infinite;
+    animation-delay: var(--service-delay);
+    transition: stroke-dashoffset 0.7s var(--ease-out-expo), opacity 0.45s;
+  }
+  .service__icon .draw-line--seam {
+    stroke-dasharray: 3.5 5.5;
+    stroke-dashoffset: 0;
+    animation: service-seam-crawl 3.8s linear infinite;
+    animation-delay: var(--service-delay);
+    opacity: 0.85;
+  }
+  .service__icon .draw-line--grid {
+    stroke-dasharray: 6 7;
+    stroke-dashoffset: 0;
+    animation: service-seam-crawl 5.2s linear infinite reverse;
+    animation-delay: calc(var(--service-delay) + 0.4s);
+    opacity: 0.7;
+  }
+  .service:hover .service__icon,
+  .service:focus-within .service__icon {
+    animation-duration: 3.2s;
+  }
+  .service:hover .service__icon .draw-line,
+  .service:focus-within .service__icon .draw-line {
+    stroke-dashoffset: 0;
+    animation: service-stitch-draw 3.6s var(--ease-out-expo) infinite;
+    opacity: 1;
+  }
+  .service:hover .service__icon .draw-line--seam,
+  .service:focus-within .service__icon .draw-line--seam {
+    animation: service-seam-crawl 1.8s linear infinite;
+    opacity: 1;
+  }
+  .service:hover .service__icon .draw-line--grid,
+  .service:focus-within .service__icon .draw-line--grid {
+    animation: service-seam-crawl 2.4s linear infinite reverse;
+    opacity: 0.95;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
-  .service__icon .draw-line { stroke-dashoffset: 0; transition: none; }
+  .service__icon,
+  .service__icon .draw-line {
+    animation: none !important;
+  }
+  .service__icon .draw-line {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+  .service__icon .draw-line--seam {
+    stroke-dasharray: 3.5 5.5;
+  }
+  .service__icon .draw-line--grid {
+    stroke-dasharray: 6 7;
+  }
+  .service:hover,
+  .service:focus-within {
+    transform: none;
+  }
+}
+
+@keyframes service-icon-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@keyframes service-stitch-draw {
+  0%, 100% {
+    stroke-dashoffset: 48;
+    opacity: 0.72;
+  }
+  18% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  62% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  82% {
+    stroke-dashoffset: 48;
+    opacity: 0.72;
+  }
+}
+@keyframes service-seam-crawl {
+  to { stroke-dashoffset: -42; }
 }
 
 .service h3 {
@@ -586,6 +990,7 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
 
 .service__tiers {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   margin-top: 1.25rem;
 }
@@ -596,6 +1001,7 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
   border-radius: 999px;
   background: color-mix(in oklch, var(--brand) 10%, transparent);
   color: var(--brand-deep);
+  border: 1px solid color-mix(in oklch, var(--brand) 12%, transparent);
 }
 .service__from {
   display: block;
@@ -603,6 +1009,7 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--terracotta);
+  letter-spacing: 0.01em;
 }
 
 /* ============================================================
@@ -652,13 +1059,31 @@ body:has(.blog-hero) .nav:not(.is-scrolled) .nav__burger[aria-expanded="true"] s
 }
 
 @media (max-width: 900px) {
-  .work__grid { grid-template-columns: repeat(2, 1fr); }
-  .work__tile--lg { grid-column: span 2; grid-row: span 1; aspect-ratio: 1; }
-  .work__tile--wide { grid-column: span 2; }
+  /* auto rows so aspect-ratio can grow the track instead of overflowing
+     over the next tile (fixed 220px rows + full-width square lg = overlap) */
+  .work__grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+  }
+  .work__tile { min-height: 200px; aspect-ratio: 1; }
+  .work__tile--lg {
+    grid-column: span 2;
+    grid-row: span 1;
+    /* full-width but not a viewport-tall square */
+    aspect-ratio: 2 / 1;
+  }
+  .work__tile--wide { grid-column: span 2; aspect-ratio: 2 / 1; }
 }
 @media (max-width: 560px) {
   .work__grid { grid-template-columns: 1fr; }
-  .work__tile--lg, .work__tile--wide { grid-column: span 1; }
+  .work__tile,
+  .work__tile--lg,
+  .work__tile--wide {
+    grid-column: span 1;
+    grid-row: span 1;
+    aspect-ratio: 5 / 4;
+    min-height: 220px;
+  }
 }
 
 .work__note {
