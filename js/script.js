@@ -7,6 +7,17 @@
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* ---------- GA4 named events (WhatsApp / Calendly) ---------- */
+  const track = (name, params) => {
+    if (typeof window.gtag === "function") window.gtag("event", name, params);
+  };
+  document.querySelectorAll(".whatsapp-fab").forEach((el) => {
+    el.addEventListener("click", () => track("whatsapp_click", { link_url: el.href }));
+  });
+  document.querySelectorAll('a[href*="calendly.com"]').forEach((el) => {
+    el.addEventListener("click", () => track("book_consultation", { link_url: el.href }));
+  });
+
   /* ---------- Nav scroll state ---------- */
   const nav = document.getElementById("nav");
   const onScroll = () => {
